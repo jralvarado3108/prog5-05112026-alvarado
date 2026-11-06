@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'semana3-4/cosecha.dart';
+import 'models/cosecha.dart';
 
 void main() => runApp(const CosechaApp());
 
@@ -30,6 +30,8 @@ class _ListaCosechasState extends State<ListaCosechas> {
     Cosecha(codigo: 'C001', finca: 'La Esperanza', cultivo: 'Arroz', kilogramos: 1200),
     Cosecha(codigo: 'C002', finca: 'El Progreso', cultivo: 'Cacao', kilogramos: 350),
     Cosecha(codigo: 'C003', finca: 'La Esperanza', cultivo: 'Banano', kilogramos: 950),
+    Cosecha(codigo: 'C004', finca: 'El Tiunfo', cultivo: 'Cafe', kilogramos: 400),
+    Cosecha(codigo: 'C005', finca: 'El Progreso', cultivo: 'Cacao', kilogramos: 500),
   ];
 
   void _agregar() {
