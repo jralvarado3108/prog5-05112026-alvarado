@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'models/cosecha.dart';
+import 'screens/detalle_cosecha.dart';
 
 void main() => runApp(const CosechaApp());
 
@@ -50,14 +51,29 @@ class _ListaCosechasState extends State<ListaCosechas> {
       body: ListView.builder(
         itemCount: _cosechas.length,
         itemBuilder: (context, i) {
-          final c = _cosechas[i];
-          return ListTile(
-            leading: const Icon(Icons.agriculture),
-            title: Text('${c.cultivo} · ${c.finca}'),
-            subtitle: Text('${c.codigo} · ${c.quintales.toStringAsFixed(1)} qq'),
-            trailing: Text('${c.kilogramos.toStringAsFixed(0)} kg'),
-          );
-        },
+        final c = _cosechas[i];
+        //   return ListTile(
+        //     leading: const Icon(Icons.agriculture),
+        //     title: Text('${c.cultivo} · ${c.finca}'),
+        //     subtitle: Text('${c.codigo} · ${c.quintales.toStringAsFixed(1)} qq'),
+        //     trailing: Text('${c.kilogramos.toStringAsFixed(0)} kg'),
+        //   );
+        // },
+        return ListTile(
+          leading: const Icon(Icons.agriculture),
+          title: Text('${c.cultivo} · ${c.finca}'),
+          subtitle: Text('${c.codigo} · ${c.quintales.toStringAsFixed(1)} qq'),
+          trailing: Text('${c.kilogramos.toStringAsFixed(0)} kg'),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => DetalleCosecha(cosecha: c),
+              ),
+            );
+          },
+        );
+        }
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _agregar,
