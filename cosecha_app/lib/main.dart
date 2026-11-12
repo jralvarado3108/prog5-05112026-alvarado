@@ -75,10 +75,31 @@ class _ListaCosechasState extends State<ListaCosechas> {
         );
         }
       ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: _agregar,
+      //   child: const Icon(Icons.add),
+      // ),
+      
       floatingActionButton: FloatingActionButton(
-        onPressed: _agregar,
-        child: const Icon(Icons.add),
-      ),
+        onPressed: _abrirFormulario,
+        child: const Icon(Icons.add),),
     );
   }
+
+  //_ListaCosechasState dentro de main.dart
+  Future<void> _abrirFormulario () async {
+    final cosecha = await Navigator.push,<Cosecha>(
+      context,
+      MaterialPageRoute(
+        builder: (_) => const FormularioCosecha(),
+      ), 
+    );
+    if (cosecha != null) {
+      setState(() {
+        _cosechas.add(cosecha);
+      });
+    }
+  
+  }
+  
 }
