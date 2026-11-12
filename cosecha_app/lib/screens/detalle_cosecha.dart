@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:cosecha_app/models/cosecha.dart';
+import '../models/cosecha.dart';
 
-class DetalleCosecha extends StatelessWidget{
+class DetalleCosecha extends StatelessWidget {
   final Cosecha cosecha;
 
   const DetalleCosecha({super.key, required this.cosecha});
@@ -10,25 +10,33 @@ class DetalleCosecha extends StatelessWidget{
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Detalle de Cosecha'),
+        title: Text('Cosecha: ${cosecha.codigo}'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Finca: ${cosecha.finca}', style: TextStyle(fontSize: 18)),
+            Text('Finca: ${cosecha.finca}', style: const TextStyle(fontSize: 18)),
             const SizedBox(height: 8),
-            Text('Cultivo: ${cosecha.cultivo}',style: TextStyle(fontSize: 18)),
+            Text('Cultivo: ${cosecha.cultivo}', style: const TextStyle(fontSize: 18)),
             const SizedBox(height: 8),
-            Text('Kilogramos: ${cosecha.kilogramos.toStringAsFixed(0)} kg', style: const TextStyle(fontSize: 18),
+            Text(
+              'Kilogramos: ${cosecha.kilogramos.toStringAsFixed(0)} kg',
+              style: const TextStyle(fontSize: 18),
+            ),
+            const SizedBox(height: 16),
+            Text(
+              'Quintales: ${cosecha.quintales.toStringAsFixed(1)} qq',
+              style: const TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+                color: Colors.green,
+              ),
+            ),
+          ],
         ),
-        const SizedBox(height: 16),
-        Text('Quintales: ${cosecha.quintales.toStringAsFixed(2)} qq', style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.green,),
-      ),  
-    ],
-  ),
-  ),
-  );
-}   
+      ),
+    );
+  }
 }

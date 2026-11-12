@@ -1,7 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'models/cosecha.dart';
 import 'screens/detalle_cosecha.dart';
+import 'screens/formulario_cosecha.dart'; // <-- Importación necesaria
 
 void main() => runApp(const CosechaApp());
 
@@ -31,16 +31,23 @@ class _ListaCosechasState extends State<ListaCosechas> {
     Cosecha(codigo: 'C001', finca: 'La Esperanza', cultivo: 'Arroz', kilogramos: 1200),
     Cosecha(codigo: 'C002', finca: 'El Progreso', cultivo: 'Cacao', kilogramos: 350),
     Cosecha(codigo: 'C003', finca: 'La Esperanza', cultivo: 'Banano', kilogramos: 950),
-    Cosecha(codigo: 'C004', finca: 'El Tiunfo', cultivo: 'Cafe', kilogramos: 400),
+    Cosecha(codigo: 'C004', finca: 'El Triunfo', cultivo: 'Cafe', kilogramos: 400),
     Cosecha(codigo: 'C005', finca: 'El Progreso', cultivo: 'Cacao', kilogramos: 500),
   ];
 
-  void _agregar() {
-    setState(() {
-      final n = (_cosechas.length + 1).toString().padLeft(3, '0');
-      _cosechas.add(Cosecha(
-          codigo: 'C$n', finca: 'Nueva finca', cultivo: 'Cacao', kilogramos: 300));
-    });
+  Future<void> _abrirFormulario() async {
+    final nueva = await Navigator.push<Cosecha>(
+      context,
+      MaterialPageRoute(
+        builder: (_) => const FormularioCosecha(),
+      ),
+    );
+
+    if (nueva != null) {
+      setState(() {
+        _cosechas.add(nueva);
+      });
+    }
   }
 
   @override
@@ -51,55 +58,27 @@ class _ListaCosechasState extends State<ListaCosechas> {
       body: ListView.builder(
         itemCount: _cosechas.length,
         itemBuilder: (context, i) {
-        final c = _cosechas[i];
-        //   return ListTile(
-        //     leading: const Icon(Icons.agriculture),
-        //     title: Text('${c.cultivo} · ${c.finca}'),
-        //     subtitle: Text('${c.codigo} · ${c.quintales.toStringAsFixed(1)} qq'),
-        //     trailing: Text('${c.kilogramos.toStringAsFixed(0)} kg'),
-        //   );
-        // },
-        return ListTile(
-          leading: const Icon(Icons.agriculture),
-          title: Text('${c.cultivo} · ${c.finca}'),
-          subtitle: Text('${c.codigo} · ${c.quintales.toStringAsFixed(1)} qq'),
-          trailing: Text('${c.kilogramos.toStringAsFixed(0)} kg'),
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => DetalleCosecha(cosecha: c),
-              ),
-            );
-          },
-        );
-        }
+          final c = _cosechas[i];
+          return ListTile(
+            leading: const Icon(Icons.agriculture),
+            title: Text('${c.cultivo} · ${c.finca}'),
+            subtitle: Text('${c.codigo} · ${c.quintales.toStringAsFixed(1)} qq'),
+            trailing: Text('${c.kilogramos.toStringAsFixed(0)} kg'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => DetalleCosecha(cosecha: c),
+                ),
+              );
+            },
+          );
+        },
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: _agregar,
-      //   child: const Icon(Icons.add),
-      // ),
-      
       floatingActionButton: FloatingActionButton(
         onPressed: _abrirFormulario,
-        child: const Icon(Icons.add),),
+        child: const Icon(Icons.add),
+      ),
     );
   }
-
-  //_ListaCosechasState dentro de main.dart
-  Future<void> _abrirFormulario () async {
-    final cosecha = await Navigator.push,<Cosecha>(
-      context,
-      MaterialPageRoute(
-        builder: (_) => const FormularioCosecha(),
-      ), 
-    );
-    if (cosecha != null) {
-      setState(() {
-        _cosechas.add(cosecha);
-      });
-    }
-  
-  }
-  
 }

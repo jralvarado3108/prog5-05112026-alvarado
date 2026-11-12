@@ -1,15 +1,17 @@
+// lib/screens/formulario_cosecha.dart
 import 'package:flutter/material.dart';
 import '../models/cosecha.dart';
 
-class FormularioCosecha extends StatefulWidget{
+class FormularioCosecha extends StatefulWidget {
   const FormularioCosecha({super.key});
 
   @override
   State<FormularioCosecha> createState() => _FormularioCosechaState();
 }
 
-class _FormularioCosechaState extends State<FormularioCosecha>{
+class _FormularioCosechaState extends State<FormularioCosecha> {
   final _formKey = GlobalKey<FormState>();
+
   final _codigoCtrl = TextEditingController();
   final _fincaCtrl = TextEditingController();
   final _cultivoCtrl = TextEditingController();
@@ -18,44 +20,44 @@ class _FormularioCosechaState extends State<FormularioCosecha>{
   @override
   void initState() {
     super.initState();
-    debugPrint('initState: Se creo la pantalla de formulario de cosecha');
+    debugPrint('initState: Se creó la pantalla del formulario');
   }
 
   @override
   void dispose() {
-    //Liberacion implicita de memoria de los controladores
+    // Liberación explícita de controladores en memoria
     _codigoCtrl.dispose();
     _fincaCtrl.dispose();
     _cultivoCtrl.dispose();
     _kgCtrl.dispose();
+    debugPrint('dispose: Se liberaron los controladores de texto');
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Formulario de Cosecha')),
+      appBar: AppBar(title: const Text('Registrar Nueva Cosecha')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
           key: _formKey,
-          child: Column(
+          child: ListView(
             children: [
               TextFormField(
                 controller: _codigoCtrl,
-                decoration: const InputDecoration(labelText: 'Código (ej: C006)'),
-                validator: (v) => (v==null || v.trim().isEmpty) ? 'Por favor ingrese un código' : null,
+                decoration: const InputDecoration(labelText: 'Código (ej. C006)'),
+                validator: (v) => (v == null || v.trim().isEmpty) ? 'Ingrese el código' : null,
               ),
               TextFormField(
                 controller: _fincaCtrl,
-                decoration: const InputDecoration(labelText: 'Finca'),
-                validator: (v) => (v==null || v.trim().isEmpty) ? 'Por favor ingrese el nombre de finca' : null,
+                decoration: const InputDecoration(labelText: 'Nombre de la Finca'),
+                validator: (v) => (v == null || v.trim().isEmpty) ? 'Ingrese la finca' : null,
               ),
-            
               TextFormField(
                 controller: _cultivoCtrl,
-                decoration: const InputDecoration(labelText: 'Cultivo'),
-                validator: (v) => (v==null || v.trim().isEmpty) ? 'Por favor ingrese el cultivo' : null,
+                decoration: const InputDecoration(labelText: 'Cultivo (ej. Cacao)'),
+                validator: (v) => (v == null || v.trim().isEmpty) ? 'Ingrese el cultivo' : null,
               ),
               TextFormField(
                 controller: _kgCtrl,
@@ -63,22 +65,23 @@ class _FormularioCosechaState extends State<FormularioCosecha>{
                 keyboardType: TextInputType.number,
                 validator: (v) {
                   final kg = double.tryParse(v ?? '');
-                  if (kg == null) return 'Por :  favor ingrese un número válido';
+                  if (kg == null) return 'Ingrese un número válido';
                   if (kg < 0) return 'Los kilogramos no pueden ser negativos';
                   return null;
                 },
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 24),
               ElevatedButton(
                 onPressed: () {
-                  if (_formKey.currentState?.validate() ?? false) {
-                    final cosecha = Cosecha(
+                  if (_formKey.currentState!.validate()) {
+                    final nueva = Cosecha(
                       codigo: _codigoCtrl.text.trim(),
                       finca: _fincaCtrl.text.trim(),
                       cultivo: _cultivoCtrl.text.trim(),
-                      kilogramos: double.parse(_kgCtrl.text.trim()),
+                      kilogramos: double.parse(_kgCtrl.text),
                     );
-                    Navigator.pop(context, cosecha);
+                    // Regresamos enviando el objeto de retorno
+                    Navigator.pop(context, nueva);
                   }
                 },
                 child: const Text('Guardar Cosecha'),
@@ -89,4 +92,5 @@ class _FormularioCosechaState extends State<FormularioCosecha>{
       ),
     );
   }
-} 
+}
+
