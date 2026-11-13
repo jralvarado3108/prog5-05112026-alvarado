@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'models/cosecha.dart';
 import 'screens/detalle_cosecha.dart';
 import 'screens/formulario_cosecha.dart'; // <-- Importación necesaria
+import 'screens/estadistica_cosecha.dart';
 
 void main() => runApp(const CosechaApp());
 
@@ -54,7 +55,24 @@ class _ListaCosechasState extends State<ListaCosechas> {
   Widget build(BuildContext context) {
     final total = _cosechas.fold<double>(0, (s, c) => s + c.kilogramos);
     return Scaffold(
-      appBar: AppBar(title: Text('Cosechas: ${total.toStringAsFixed(0)} kg')),
+      appBar: AppBar(
+      title: Text('Cosechas: ${total.toStringAsFixed(0)} kg'),
+      actions: [
+        // Botón en el AppBar para ir a estadísticas
+        IconButton(
+          icon: const Icon(Icons.bar_chart),
+          tooltip: 'Ver Estadísticas',
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => EstadisticasCosecha(cosechas: _cosechas),
+              ),
+            );
+          },
+        ),
+      ],
+    ),
       body: ListView.builder(
         itemCount: _cosechas.length,
         itemBuilder: (context, i) {
