@@ -53,10 +53,10 @@ class _ListaCosechasState extends State<ListaCosechas> {
 
   @override
   Widget build(BuildContext context) {
-    final total = _cosechas.fold<double>(0, (s, c) => s + c.kilogramos);
+    //final total = _cosechas.fold<double>(0, (s, c) => s + c.kilogramos);
     return Scaffold(
       appBar: AppBar(
-      title: Text('Cosechas: ${total.toStringAsFixed(0)} kg'),
+      title: Text('Cosechas'),
       actions: [
         // Botón en el AppBar para ir a estadísticas
         IconButton(
