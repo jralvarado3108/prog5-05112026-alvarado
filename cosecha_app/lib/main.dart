@@ -9,12 +9,33 @@ void main() => runApp(const CosechaApp());
 class CosechaApp extends StatelessWidget {
   const CosechaApp({super.key});
 
+  //Color semilla institucional (Verde UAE)
+  static const Color _seeVerde =Color (0xFF005E29);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Cosechas',
+      title: 'Cosechas UAE',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(colorSchemeSeed: Colors.green),
+      
+      //Tema claro de la aplicación  
+      theme: ThemeData(
+        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: _seeVerde,
+          brightness: Brightness.light,
+        ),
+      ),    
+
+      //Tema oscuro de la aplicación
+      darkTheme: ThemeData(
+        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: _seeVerde),
+          brightness: Brightness.dark,  
+      ),
+      //El sistema operativo decide si se usa el tema claro u oscuro
+      themeMode: ThemeMode.system,
       home: const ListaCosechas(),
     );
   }
