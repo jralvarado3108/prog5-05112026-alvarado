@@ -38,7 +38,6 @@ const CosechaApp({super.key});
       home: const ListaCosechas(),
     );
   }
-
 }
 
 class ListaCosechas extends StatefulWidget {
@@ -69,11 +68,21 @@ class _ListaCosechasState extends State<ListaCosechas> {
       setState(() {
         _cosechas.add(nueva);
       });
+      // Retrolimentación Material 3
+      if(!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text ('Cosecha Guardada'),
+          behavior: SnackBarBehavior.floating,  
+        ),
+      );
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final colores = Theme.of(context).colorScheme;
+    final texts = Theme.of(context).textTheme;
     //final total = _cosechas.fold<double>(0, (s, c) => s + c.kilogramos);
     return Scaffold(
       appBar: AppBar(

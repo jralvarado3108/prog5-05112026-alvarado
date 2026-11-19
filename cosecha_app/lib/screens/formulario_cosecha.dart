@@ -71,7 +71,7 @@ class _FormularioCosechaState extends State<FormularioCosecha> {
                 },
               ),
               const SizedBox(height: 24),
-              ElevatedButton(
+              FilledButton.icon(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     final nueva = Cosecha(
@@ -84,7 +84,8 @@ class _FormularioCosechaState extends State<FormularioCosecha> {
                     Navigator.pop(context, nueva);
                   }
                 },
-                child: const Text('Guardar Cosecha'),
+                icon: const Icon(Icons.save),
+                label: const Text('Guardar Cosecha'),
               ),
             ],
           ),
