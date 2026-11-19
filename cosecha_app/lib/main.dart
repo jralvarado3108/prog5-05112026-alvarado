@@ -7,38 +7,38 @@ import 'screens/estadistica_cosecha.dart';
 void main() => runApp(const CosechaApp());
 
 class CosechaApp extends StatelessWidget {
-  const CosechaApp({super.key});
+const CosechaApp({super.key});
 
-  //Color semilla institucional (Verde UAE)
-  static const Color _seeVerde =Color (0xFF005E29);
+  // Color semilla institucional (Verde UAE)
+  static const Color _seedVerde = Color(0xFF005E29);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Cosechas UAE',
       debugShowCheckedModeBanner: false,
-      
-      //Tema claro de la aplicación  
+      // Tema Claro
       theme: ThemeData(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
-          seedColor: _seeVerde,
+          seedColor: _seedVerde,
           brightness: Brightness.light,
         ),
-      ),    
-
-      //Tema oscuro de la aplicación
+      ),
+      // Tema Oscuro
       darkTheme: ThemeData(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
-          seedColor: _seeVerde),
-          brightness: Brightness.dark,  
+          seedColor: _seedVerde,
+          brightness: Brightness.dark,
+        ),
       ),
-      //El sistema operativo decide si se usa el tema claro u oscuro
+      // El sistema operativo del dispositivo decide claro u oscuro
       themeMode: ThemeMode.system,
       home: const ListaCosechas(),
     );
   }
+
 }
 
 class ListaCosechas extends StatefulWidget {
