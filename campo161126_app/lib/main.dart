@@ -70,6 +70,6 @@ class _ReporteCampoState extends State<ReporteCampo> {
           ],
         ),
       ),
-    );
+    ); 
   }
 }
