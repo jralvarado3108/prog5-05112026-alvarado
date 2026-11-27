@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'dart:typed_data'; //permite guardar la foto como byte
+import 'package:image_picker/image_picker.dart'; //selector de imagen 
 
 void main() {
   runApp(const MyApp());
@@ -29,6 +31,17 @@ class ReporteCampo extends StatefulWidget {
 
 class _ReporteCampoState extends State<ReporteCampo> {
   String _ubicacion = "Sin ubicación";
+  Uint8List? _foto;
+
+  Future<void> _tomarFoto() async {
+    final img = await ImagePicker().pickImage(
+      source: ImageSource.camera, //abrir la camara
+      maxWidth: 800,
+      );
+      if (img==null) return; //el usuario cancelo tomar la foto
+      final bytes = await img.readAsBytes();
+      setState(()=> _foto = bytes);
+  }
 
   Future<void> _obtenerUbicacion() async {
     var permiso = await Geolocator.checkPermission();
@@ -67,6 +80,17 @@ class _ReporteCampoState extends State<ReporteCampo> {
             icon: const Icon(Icons.gps_fixed),
             label: const Text('Obtener ubicación'),
             ),
+          const SizedBox (height: 16),
+          OutlinedButton.icon(
+            onPressed: _tomarFoto, 
+            icon: const Icon(Icons.photo_camera),
+            label: const Text('Tomar foto'),
+            ),
+            const SizedBox(height: 16),
+            if(_foto!=null) Image.memory(_foto!, height: 200,), //esta linea indica que si hay una foto que se muestre
+
+
+
           ],
         ),
       ),
